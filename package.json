@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",
+    "@types/node": "^20.12.8",
     "eslint": "^9.1.1",
     "nodemon": "^3.1.0"
   }
