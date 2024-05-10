@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,7 +31,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* --ring: 222.2 84% 4.9%; */
 
     --radius: 0.5rem;
   }
@@ -62,7 +63,19 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 235.2 0% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* --ring: 212.7 26.8% 83.9%; */
+  }
+}
+
+.dark {
+  a {
+    color: #4ecdc4; /* Default link color */
+    text-decoration: none; /* Remove underline if needed */
+    transition: color 0.3s ease; /* Smooth transition on color change */
+  }
+
+  a:hover {
+    color: #48a9a6; /* Hover color */
   }
 }
 
@@ -75,8 +88,6 @@
   }
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
-
 .header {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 54px;
@@ -85,4 +96,13 @@
 
 .min-h-screen {
   min-height: 85vh;
+}
+
+.conversation {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 18px;
+}
+
+.para {
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
