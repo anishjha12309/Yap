@@ -3,10 +3,7 @@ const Message = () => {
     <div className="chat chat-end">
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind css chat bubble component"
-            src="../../../../public/default.jpg"
-          />
+          <img alt="Tailwind css chat bubble component" src="/default.jpg" />
         </div>
       </div>
       <div className="chat-bubble text-[#ffff]">Hi! What is up!</div>

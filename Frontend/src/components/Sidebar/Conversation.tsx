@@ -4,7 +4,7 @@ const Conversation = () => {
       <div className="flex gap-2 items-center p-2 py-1 rounded cursor-pointer">
         <div className="avatar online">
           <div className="w-12 rounded-full">
-            <img src="../../../public/default.jpg" alt="user avatar" />
+            <img src="/default.jpg" alt="user avatar" />
           </div>
         </div>
         <div className="flex flex-col flex-1">
