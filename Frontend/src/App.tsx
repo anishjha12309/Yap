@@ -1,22 +1,33 @@
 import "./App.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Signup from "./pages/Signup/Signup";
 import SignIn from "./pages/Signin/Signin";
 import { Toaster } from "react-hot-toast";
+import { useAuthContext } from "./context/AuthContext";
 
 export function App() {
+  const { authUser } = useAuthContext();
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <>
         <h1 className="header">Yap</h1>
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/"
+              element={authUser ? <Home /> : <Navigate to={"/signin"} />}
+            />
+            <Route
+              path="/signin"
+              element={authUser ? <Navigate to="/" /> : <SignIn />}
+            />
+            <Route
+              path="/signup"
+              element={authUser ? <Navigate to="/" /> : <Signup />}
+            />
           </Routes>
           <Toaster />
         </main>

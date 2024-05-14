@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/context/AuthContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -9,13 +10,9 @@ interface SignupData {
   gender: string;
 }
 
-interface ApiResponse {
-  success: boolean;
-  message: string;
-}
-
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
+  const { setAuthUser } = useAuthContext();
   const signup = async ({
     fullName,
     username,
@@ -36,9 +33,10 @@ const useSignup = () => {
           gender,
         }),
       });
-      const data: ApiResponse = await res.json();
+      const data = await res.json();
       if (res.ok) {
-        console.log(data);
+        localStorage.setItem("chat-user", JSON.stringify(data));
+        setAuthUser(data);
       } else {
         throw new Error(data.message);
       }

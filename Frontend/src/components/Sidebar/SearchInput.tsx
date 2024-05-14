@@ -11,9 +11,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
+import useConversation from "@/zustand/useConversation";
+import useGetConversations from "@/hooks/useGetConversations";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  searchInput: z.string().min(3),
+  searchInput: z.string(),
 });
 
 const SearchInput = () => {
@@ -24,8 +27,22 @@ const SearchInput = () => {
     },
   });
 
+  const { setSelectedConversation } = useConversation();
+  const { conversations } = useGetConversations();
+
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+    if (!values.searchInput) return;
+
+    if (values.searchInput.length <= 3) {
+      return toast.error("Search term must be at least 3 characters long");
+    }
+    const conversation = conversations.find((c) =>
+      c.fullName.toLowerCase().includes(values.searchInput.toLowerCase())
+    );
+    if (conversation) {
+      setSelectedConversation(conversation);
+      form.reset();
+    } else toast.error(`No such user found with name ${values.searchInput}`);
   };
 
   return (

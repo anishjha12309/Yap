@@ -154,8 +154,12 @@ export default function Signup() {
               );
             }}
           />
-          <Button type="submit" className="w-full">
-            Sign Up
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
         </form>
       </Form>

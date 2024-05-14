@@ -12,10 +12,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import useLogin from "@/hooks/useLogin";
 
 const formSchema = z.object({
   password: z.string().min(8, { message: "Password is a required field" }),
-  userName: z.string().min(3, { message: "User name is a required field" }),
+  username: z.string().min(3, { message: "User name is a required field" }),
 });
 
 export default function SignIn() {
@@ -23,12 +24,15 @@ export default function SignIn() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
-      userName: "",
+      username: "",
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const { loading, login } = useLogin();
+
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    const { username, password } = values;
+    await login(username, password);
   };
 
   return (
@@ -41,7 +45,7 @@ export default function SignIn() {
         >
           <FormField
             control={form.control}
-            name="userName"
+            name="username"
             render={({ field }) => {
               return (
                 <FormItem>
@@ -70,8 +74,12 @@ export default function SignIn() {
               );
             }}
           />
-          <Button type="submit" className="w-full">
-            Sign In
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              "Log in"
+            )}
           </Button>
         </form>
       </Form>
