@@ -2,6 +2,7 @@ import "./App.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Navigate, Route, Routes } from "react-router-dom";
+// @ts-expect-error:Importing JSX File in TSX File
 import Home from "./pages/Home/Home";
 import Signup from "./pages/Signup/Signup";
 import SignIn from "./pages/Signin/Signin";

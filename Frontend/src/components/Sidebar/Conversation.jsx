@@ -1,20 +1,8 @@
 import { useSocketContext } from "@/context/SocketContext";
 import useConversation from "@/zustand/useConversation";
 import React from "react";
-interface ConversationType {
-  _id: string;
-  fullName: string;
-  username: string;
-  gender: string;
-  profilePic: string;
-}
 
-interface Props {
-  conversation: ConversationType;
-  lastIdx: boolean;
-}
-
-const Conversation: React.FC<Props> = ({ conversation, lastIdx }) => {
+const Conversation = ({ conversation, lastIdx }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
   const { fullName, username, profilePic } = conversation;

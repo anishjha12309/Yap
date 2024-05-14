@@ -4,7 +4,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.tsx";
-import { SocketContextProvider } from "./context/SocketContext.tsx";
+// @ts-expect-error:Importing JSX File in TSX File
+import { SocketContextProvider } from "./context/SocketContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
