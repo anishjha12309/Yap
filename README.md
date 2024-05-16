@@ -11,7 +11,7 @@ YAP is a real-time chat application built using modern web technologies such as 
 - **UI**: Sleek, aesthetic UI made with the help of Tailwind CSS and Reactjs.
 
 ## Link of the project
-[Imgur](https://yap-0glm.onrender.com/)
+[Yap](https://yap-0glm.onrender.com/)
 
 
 ## Getting Started
