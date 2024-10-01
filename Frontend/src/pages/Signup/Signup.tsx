@@ -63,7 +63,7 @@ export default function Signup() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="max-w-md w-full flex flex-col gap-4"
+          className="max-w-md w-full max-md:w-[90%] flex flex-col gap-4"
         >
           <FormField
             control={form.control}

@@ -41,7 +41,7 @@ export default function SignIn() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="max-w-md w-full flex flex-col gap-4 mt-[-50px]"
+          className="max-w-md w-full max-md:w-[87%] flex flex-col gap-4 mt-[-50px]"
         >
           <FormField
             control={form.control}
