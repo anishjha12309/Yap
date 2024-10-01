@@ -36,4 +36,3 @@ const Conversation = ({ conversation, lastIdx }) => {
 };
 
 export default Conversation;
-// Have to add hover color for both dark mode and light mode

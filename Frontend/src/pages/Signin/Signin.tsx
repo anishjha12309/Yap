@@ -37,7 +37,7 @@ export default function SignIn() {
 
   return (
     <>
-      <h1 className="text-[80px]">Login</h1>
+      <h1 className="text-[80px] max-md:text-[70px]">Login</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}

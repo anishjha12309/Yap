@@ -13,9 +13,11 @@ export function App() {
   const { authUser } = useAuthContext();
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <>
-        <h1 className="header">Yap</h1>
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div>
+        <h1 className="text-[54px] max-md:text-[44px] max-md:ml-[1.2rem] max-md:pt-[1rem] ml-[1rem]">
+          Yap
+        </h1>
+        <main className="flex min-h-[100vh] flex-col items-center justify-between p-24 max-md:p-0 max-md:mt-16">
           <Routes>
             <Route
               path="/"
@@ -35,7 +37,7 @@ export function App() {
         <footer>
           <ModeToggle />
         </footer>
-      </>
+      </div>
     </ThemeProvider>
   );
 }

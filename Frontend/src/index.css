@@ -92,12 +92,6 @@
   }
 }
 
-.header {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 54px;
-  margin-left: 1rem;
-}
-
 .min-h-screen {
   min-height: 85vh;
 }

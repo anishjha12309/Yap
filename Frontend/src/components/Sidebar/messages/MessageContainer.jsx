@@ -21,7 +21,7 @@ const MessageContainer = () => {
         <>
           <div className="px-4 py-2 mb-2">
             <span className="label-text">To:</span>
-            <span className="conversation">
+            <span className="text-[18px] max-md:text-[13px]">
               {" "}
               {selectedConversation.fullName}
             </span>
