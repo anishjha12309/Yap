@@ -11,6 +11,7 @@ export interface Message {
 interface Conversation {
   _id: string;
   fullName: string;
+  username: string;
   profilePic: string;
 }
 
