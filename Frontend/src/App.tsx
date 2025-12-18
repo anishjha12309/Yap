@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Signup from "./pages/Signup/Signup";
 import SignIn from "./pages/Signin/Signin";
+import ProfileSettings from "./pages/Profile/ProfileSettings";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 
@@ -56,6 +57,10 @@ export function App() {
               <Route
                 path="/signup"
                 element={<Navigate to="/" />}
+              />
+              <Route
+                path="/profile"
+                element={<ProfileSettings />}
               />
             </Routes>
             <Toaster />

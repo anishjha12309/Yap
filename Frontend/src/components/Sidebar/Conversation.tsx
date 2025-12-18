@@ -1,5 +1,6 @@
 import { useSocketContext } from "@/context/SocketContext";
 import useConversation from "@/zustand/useConversation";
+import Avatar from "@/components/Avatar";
 
 interface ConversationProps {
   conversation: {
@@ -29,7 +30,7 @@ const Conversation = ({ conversation, onSelect }: ConversationProps) => {
       onClick={handleClick}
     >
       <div className="chat-avatar">
-        <img src={profilePic} alt={fullName} />
+        <Avatar src={profilePic} alt={fullName} size="md" />
         {isOnline && <div className="chat-avatar-online" />}
       </div>
       <div className="chat-conversation-info">

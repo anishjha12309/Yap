@@ -1,6 +1,7 @@
 import { useAuthContext } from "@/context/AuthContext";
 import { extractTime } from "@/utils/extractTime";
 import useConversation from "@/zustand/useConversation";
+import Avatar from "@/components/Avatar";
 
 interface MessageProps {
   message: {
@@ -25,7 +26,7 @@ const Message = ({ message }: MessageProps) => {
   return (
     <div className={`chat-message ${fromMe ? 'sent' : 'received'} ${shakeClass}`}>
       <div className="chat-message-avatar">
-        <img src={profilePic} alt="Avatar" />
+        <Avatar src={profilePic} alt={fromMe ? authUser?.fullName : selectedConversation?.fullName} size="md" />
       </div>
       <div className="chat-message-content">
         <div className="chat-message-bubble">

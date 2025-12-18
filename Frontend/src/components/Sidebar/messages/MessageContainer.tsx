@@ -1,6 +1,7 @@
 import useConversation from "@/zustand/useConversation";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
+import Avatar from "@/components/Avatar";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
@@ -59,10 +60,11 @@ const ChatHeader = ({ onBack, showBackButton }: ChatHeaderProps) => {
           <ArrowLeft size={22} />
         </button>
       )}
-      <div className="chat-avatar" style={{ width: 44, height: 44 }}>
-        <img 
+      <div className="chat-avatar">
+        <Avatar 
           src={selectedConversation.profilePic} 
           alt={selectedConversation.fullName} 
+          size="md"
         />
       </div>
       <div className="chat-header-info">
