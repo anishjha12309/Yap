@@ -1,19 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 
+export interface Message {
+  _id: string;
+  senderId: string;
+  message: string;
+  createdAt: string;
+  shouldShake?: boolean;
+}
+
+interface Conversation {
+  _id: string;
+  fullName: string;
+  profilePic: string;
+}
+
 interface ConversationState {
-  selectedConversation: any; // Adjust the type according to your needs
-  setSelectedConversation: (selectedConversation: any) => void; // Adjust the type according to your needs
-  messages: string[]; // Adjust the type according to your needs
-  setMessages: (messages: string[]) => void;
+  selectedConversation: Conversation | null;
+  setSelectedConversation: (selectedConversation: Conversation | null) => void;
+  messages: Message[];
+  setMessages: (messages: Message[]) => void;
 }
 
 const useConversation = create<ConversationState>((set) => ({
   selectedConversation: null,
-  setSelectedConversation: (selectedConversation: any) =>
+  setSelectedConversation: (selectedConversation) =>
     set({ selectedConversation }),
   messages: [],
-  setMessages: (messages: string[]) => set({ messages }),
+  setMessages: (messages) => set({ messages }),
 }));
 
 export default useConversation;
