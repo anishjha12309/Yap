@@ -5,6 +5,7 @@ import Avatar from "@/components/Avatar";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
+import useListenTyping from "@/hooks/useListenTyping";
 
 interface MessageContainerProps {
   onBack?: () => void;
@@ -46,6 +47,7 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ onBack, showBackButton }: ChatHeaderProps) => {
   const { selectedConversation } = useConversation();
+  const { isTyping } = useListenTyping(); // Get typing status
   
   if (!selectedConversation) return null;
   
@@ -69,7 +71,9 @@ const ChatHeader = ({ onBack, showBackButton }: ChatHeaderProps) => {
       </div>
       <div className="chat-header-info">
         <h2 className="chat-header-name">{selectedConversation.fullName}</h2>
-        <p className="chat-header-status">@{selectedConversation.username}</p>
+        <p className="chat-header-status">
+          {isTyping ? <span className="text-primary italic animate-pulse">Typing...</span> : `@${selectedConversation.username}`}
+        </p>
       </div>
     </div>
   );

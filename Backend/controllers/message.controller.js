@@ -4,7 +4,7 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, image } = req.body;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
@@ -22,6 +22,7 @@ export const sendMessage = async (req, res) => {
       senderId,
       receiverId,
       message,
+      image: image || "",
     });
 
     if (newMessage) {
@@ -55,9 +56,28 @@ export const getMessages = async (req, res) => {
 
     const messages = conversation.messages;
 
+    // Mark unread messages as read
+    // Filter messages sent by the other user that are not read
+    const unreadMessagesIds = messages
+      .filter((msg) => msg.senderId.toString() !== senderId && !msg.isRead)
+      .map((msg) => msg._id);
+
+    if (unreadMessagesIds.length > 0) {
+      await Message.updateMany(
+        { _id: { $in: unreadMessagesIds } },
+        { $set: { isRead: true } }
+      );
+      
+      // Emit event to the other user that we read their messages
+      const otherUserSocketId = getReceiverSocketId(userToChatId);
+      if (otherUserSocketId) {
+        io.to(otherUserSocketId).emit("messagesRead", unreadMessagesIds);
+      }
+    }
+
     res.status(200).json(messages);
   } catch (error) {
-    console.log("Error in sendMessage controller:", error.message);
+    console.log("Error in getMessages controller:", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
