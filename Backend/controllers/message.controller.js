@@ -122,3 +122,53 @@ export const deleteMessage = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const addReaction = async (req, res) => {
+  try {
+    const { id: messageId } = req.params;
+    const { emoji } = req.body;
+    const userId = req.user._id;
+
+    if (!emoji) {
+      return res.status(400).json({ error: "Emoji is required" });
+    }
+
+    const message = await Message.findById(messageId);
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Check if user already reacted with this emoji - toggle it
+    const existingReactionIndex = message.reactions.findIndex(
+      (r) => r.userId.toString() === userId.toString() && r.emoji === emoji
+    );
+
+    if (existingReactionIndex > -1) {
+      // Remove reaction (toggle off)
+      message.reactions.splice(existingReactionIndex, 1);
+    } else {
+      // Add reaction
+      message.reactions.push({ emoji, userId });
+    }
+
+    await message.save();
+
+    // Notify both sender and receiver
+    const otherUserId = message.senderId.toString() === userId.toString() 
+      ? message.receiverId 
+      : message.senderId;
+    
+    const otherSocketId = getReceiverSocketId(otherUserId);
+    if (otherSocketId) {
+      io.to(otherSocketId).emit("messageReaction", {
+        messageId,
+        reactions: message.reactions
+      });
+    }
+
+    res.status(200).json({ reactions: message.reactions });
+  } catch (error) {
+    console.log("Error in addReaction controller:", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

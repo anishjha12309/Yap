@@ -32,14 +32,24 @@ const useListenMessages = () => {
       setMessages(messagesRef.current.filter((msg) => msg._id !== messageId));
     };
 
+    const handleMessageReaction = (data: { messageId: string; reactions: any[] }) => {
+      setMessages(
+        messagesRef.current.map((msg) =>
+          msg._id === data.messageId ? { ...msg, reactions: data.reactions } : msg
+        )
+      );
+    };
+
     socket?.on("newMessage", handleNewMessage);
     socket?.on("messagesRead", handleMessagesRead);
     socket?.on("messageDeleted", handleMessageDeleted);
+    socket?.on("messageReaction", handleMessageReaction);
 
     return () => {
       socket?.off("newMessage", handleNewMessage);
       socket?.off("messagesRead", handleMessagesRead);
       socket?.off("messageDeleted", handleMessageDeleted);
+      socket?.off("messageReaction", handleMessageReaction);
     };
   }, [socket, setMessages]);
 };
