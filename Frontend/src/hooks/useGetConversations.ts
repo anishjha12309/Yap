@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
-interface ConversationType {
-  _id: string;
-  fullName: string;
-  username: string;
-  gender: string;
-  profilePic: string;
-}
+import useConversation from "@/zustand/useConversation";
 
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
-  const [conversations, setConversations] = useState<ConversationType[]>([]);
+  const { conversations, setConversations } = useConversation();
 
   useEffect(() => {
     const getConversations = async () => {
@@ -23,7 +16,6 @@ const useGetConversations = () => {
           throw new Error(data.error);
         }
         setConversations(data);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         toast.error(error.message);
       } finally {
@@ -32,7 +24,7 @@ const useGetConversations = () => {
     };
 
     getConversations();
-  }, []);
+  }, [setConversations]);
 
   return { loading, conversations };
 };

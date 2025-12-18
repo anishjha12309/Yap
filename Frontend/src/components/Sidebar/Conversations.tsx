@@ -1,4 +1,5 @@
 import useGetConversations from "@/hooks/useGetConversations";
+import useListenProfileUpdates from "@/hooks/useListenProfileUpdates";
 import Conversation from "./Conversation";
 
 interface ConversationsProps {
@@ -7,6 +8,7 @@ interface ConversationsProps {
 
 const Conversations = ({ onSelectConversation }: ConversationsProps) => {
   const { loading, conversations } = useGetConversations();
+  useListenProfileUpdates();
   
   return (
     <div className="chat-conversations">

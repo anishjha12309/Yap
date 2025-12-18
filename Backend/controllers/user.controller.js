@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import { io } from "../socket/socket.js";
 
 export const getUsersForSidebar = async (req, res) => {
   try {
@@ -38,6 +39,8 @@ export const updateUserProfile = async (req, res) => {
       },
       { new: true } // Return updated document
     ).select("-password");
+
+    io.emit("userProfileUpdated", updatedUser);
 
     res.status(200).json(updatedUser);
   } catch (error) {

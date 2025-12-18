@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
-import { Camera } from "lucide-react";
+import { Camera, ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface ProfileFormData {
@@ -56,7 +56,12 @@ const ProfileSettings = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4">
       <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-xl shadow-lg border border-border/50">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 relative">
+          <div className="absolute left-0 top-0 h-full flex items-center">
+            <Button variant="ghost" size="icon" onClick={() => window.history.back()}>
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          </div>
           <h1 className="text-3xl font-bold tracking-tight">Edit Profile</h1>
           <p className="text-muted-foreground">Customize your public profile</p>
         </div>
