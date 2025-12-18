@@ -28,12 +28,18 @@ const useListenMessages = () => {
       );
     };
 
+    const handleMessageDeleted = (messageId: string) => {
+      setMessages(messagesRef.current.filter((msg) => msg._id !== messageId));
+    };
+
     socket?.on("newMessage", handleNewMessage);
     socket?.on("messagesRead", handleMessagesRead);
+    socket?.on("messageDeleted", handleMessageDeleted);
 
     return () => {
       socket?.off("newMessage", handleNewMessage);
       socket?.off("messagesRead", handleMessagesRead);
+      socket?.off("messageDeleted", handleMessageDeleted);
     };
   }, [socket, setMessages]);
 };
