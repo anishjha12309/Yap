@@ -1,15 +1,29 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, ReactNode } from "react";
 import { useAuthContext } from "./AuthContext";
-import io from "socket.io-client";
-export const SocketContext = createContext();
+import io, { Socket } from "socket.io-client";
+
+interface SocketContextType {
+  socket: Socket | null;
+  onlineUsers: string[];
+}
+
+export const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
 export const useSocketContext = () => {
-  return useContext(SocketContext);
+  const context = useContext(SocketContext);
+  if (!context) {
+    throw new Error("useSocketContext must be used within SocketContextProvider");
+  }
+  return context;
 };
 
-export const SocketContextProvider = ({ children }) => {
-  const [socket, setSocket] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]);
+interface SocketContextProviderProps {
+  children: ReactNode;
+}
+
+export const SocketContextProvider = ({ children }: SocketContextProviderProps) => {
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
   const { authUser } = useAuthContext();
 
   useEffect(() => {
@@ -27,7 +41,7 @@ export const SocketContextProvider = ({ children }) => {
       });
       setSocket(newSocket);
 
-      newSocket.on("getOnlineUsers", (users) => {
+      newSocket.on("getOnlineUsers", (users: string[]) => {
         setOnlineUsers(users);
       });
 
