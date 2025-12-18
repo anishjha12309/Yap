@@ -8,14 +8,14 @@ const useListenTyping = () => {
   const { selectedConversation } = useConversation();
 
   useEffect(() => {
-    socket?.on("typing", (roomId) => {
-      if (selectedConversation?._id === roomId) {
+    socket?.on("typing", (senderId) => {
+      if (selectedConversation?._id === senderId) {
         setIsTyping(true);
       }
     });
 
-    socket?.on("stopTyping", (roomId) => {
-      if (selectedConversation?._id === roomId) {
+    socket?.on("stopTyping", (senderId) => {
+      if (selectedConversation?._id === senderId) {
         setIsTyping(false);
       }
     });

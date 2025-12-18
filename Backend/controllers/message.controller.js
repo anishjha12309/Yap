@@ -59,7 +59,7 @@ export const getMessages = async (req, res) => {
     // Mark unread messages as read
     // Filter messages sent by the other user that are not read
     const unreadMessagesIds = messages
-      .filter((msg) => msg.senderId.toString() !== senderId && !msg.isRead)
+      .filter((msg) => msg.senderId.toString() !== senderId.toString() && !msg.isRead)
       .map((msg) => msg._id);
 
     if (unreadMessagesIds.length > 0) {
