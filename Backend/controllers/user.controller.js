@@ -8,23 +8,7 @@ export const getUsersForSidebar = async (req, res) => {
     const allUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
       "-password"
     );
-    
-    // Get unread counts for each user
-    const usersWithUnreadCount = await Promise.all(
-      allUsers.map(async (user) => {
-        const unreadCount = await Message.countDocuments({
-          senderId: user._id,
-          receiverId: loggedInUserId,
-          isRead: false
-        });
-        return {
-          ...user.toObject(),
-          unreadCount
-        };
-      })
-    );
-    
-    res.status(200).json(usersWithUnreadCount);
+    res.status(200).json(allUsers);
   } catch (error) {
     console.error("Error in getUsersForSidebar: ", error.message);
     res.status(500).json({ error: "Internal server error" });
