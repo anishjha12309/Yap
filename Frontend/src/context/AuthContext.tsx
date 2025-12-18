@@ -1,8 +1,15 @@
 import { createContext, useState, useContext } from "react";
 
+interface AuthUser {
+  _id: string;
+  fullName: string;
+  username: string;
+  profilePic: string;
+}
+
 export const AuthContext = createContext<{
-  authUser: string | null;
-  setAuthUser: React.Dispatch<React.SetStateAction<string | null>>;
+  authUser: AuthUser | null;
+  setAuthUser: React.Dispatch<React.SetStateAction<AuthUser | null>>;
 }>({ authUser: null, setAuthUser: () => {} });
 
 export const useAuthContext = () => {
