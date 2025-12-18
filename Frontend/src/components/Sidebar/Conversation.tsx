@@ -1,0 +1,43 @@
+import { useSocketContext } from "@/context/SocketContext";
+import useConversation from "@/zustand/useConversation";
+
+interface ConversationProps {
+  conversation: {
+    _id: string;
+    fullName: string;
+    username: string;
+    profilePic: string;
+  };
+  onSelect?: () => void;
+}
+
+const Conversation = ({ conversation, onSelect }: ConversationProps) => {
+  const { selectedConversation, setSelectedConversation } = useConversation();
+  const isSelected = selectedConversation?._id === conversation._id;
+  const { fullName, username, profilePic } = conversation;
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(conversation._id);
+
+  const handleClick = () => {
+    setSelectedConversation(conversation);
+    onSelect?.();
+  };
+
+  return (
+    <div
+      className={`chat-conversation-item ${isSelected ? 'active' : ''}`}
+      onClick={handleClick}
+    >
+      <div className="chat-avatar">
+        <img src={profilePic} alt={fullName} />
+        {isOnline && <div className="chat-avatar-online" />}
+      </div>
+      <div className="chat-conversation-info">
+        <p className="chat-conversation-name">{fullName}</p>
+        <p className="chat-conversation-username">@{username}</p>
+      </div>
+    </div>
+  );
+};
+
+export default Conversation;
